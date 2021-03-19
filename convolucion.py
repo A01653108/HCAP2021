@@ -1,51 +1,38 @@
+import numpy as np
+import cv2
 
-<<<<<<< HEAD
-=======
-#Bibliotecas importadas
->>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
-import numpy as np #Numpy
-
-#Función de convolución
-def convolucion(IOriginal, Kernel):
-<<<<<<< HEAD
-    '''
-   #Función que se encarga de realizar la convolución a una imágen con un Kernel
-    Parámetros:
-    * IOriginal = Matriz de la imagen original a la que se le aplicará la convolución
-    * Kernel = Matriz que servirá como el Kernel de la convolución de la imagen
-    * Res = Matriz resultante de realizar la convolución de la imagen
-    '''
-=======
->>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
-
-    #Variables:
-    fr = len(IOriginal) - (len(Kernel) - 1)           #Número de filas de la matriz resultante
-    cr = len(IOriginal[0]) - (len(Kernel[0]) - 1)     #Número de columnas de la matriz resultante 
-    Res = np.zeros((fr, cr))                          #Matriz resultante
-
-    #For para recorrer las filas
-    for i in range(len(Res)):
-        #For para recorrer las columnas
-        for j in range(len(Res[0])):
-            suma = 0  #Resultado de la multiplicación de la imagen con el Kernel
-            #For para recorrer las filas del Kernel
+def convolucion(Ioriginal,Kernel):
+    fr=len(Ioriginal)-(len(Kernel)-1)
+    cr=len(Ioriginal[0])-(len(Kernel[0])-1)
+    Resultado=np.zeros((fr,cr),np.uint8)
+    #For para recorrer filas
+    for i in range(len(Resultado)):
+        #For para recorrer columnas
+        for j in range(len(Resultado[0])):
+            suma=0
+            #hace las multiplicaciones y las suma
             for m in range(len(Kernel)):
-                #For para recorrer las columnas del Kernel
                 for n in range(len(Kernel[0])):
-                    suma += Kernel[m][n] * IOriginal[m + i][n + j] #Multiplicación de matrices
-            Res[i][j] = suma #Sustituyendo el valor de la multiplicación en su celda correspondiente
-    return Res #Se regresa la matriz resultante
+                    suma+=Kernel[m][n]*Ioriginal[m+i][n+j]
+            if suma<=255:        
+                Resultado[i][j]=round(suma)
+            else:
+                Resultado[i][j]=255
+    return Resultado
+#imagenes
+K=[[-1,0,1],[-1,0,1],[-1,0,1]]
+I=[[2,0,1,1,1],[3,0,0,0,2],[1,1,1,1,1],[3,1,1,1,2],[1,1,1,1,1]]
 
-#Probando la función
-#Variables
-K = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]                                                    #Kernel
-I = [[2, 0, 1, 1, 1], [3, 0, 0, 0, 2], [1, 1, 1, 1, 1], [3, 1, 1, 1, 2], [1, 1, 1, 1, 1]]   #Imágen
-In = np.array(I)  #Array de la imágen en numpy
-Kn = np.array(K)  #Array del Kernel en numpy
+#imagenes a numpy arrays
+In=np.array(I)
+Kn=np.array(K)
 
-R = convolucion(In, Kn) #Se hace la matriz resultante mandando a llamar la función de convolución
-<<<<<<< HEAD
-print(R) 
-=======
-print(R)   #Se imprime la matriz resultante de la convoluciór
->>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
+IRGB=cv2.imread('004.jpg')
+IGS=cv2.cvtColor(IRGB,cv2.COLOR_BGR2GRAY)
+print(IGS.shape)
+
+#funcion de convolucion
+R=convolucion(IGS,Kn)
+print(R)
+print(R.shape)
+cv2.imwrite('Spiderman.jpg',R)
