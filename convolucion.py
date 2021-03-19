@@ -1,8 +1,13 @@
 
+<<<<<<< HEAD
+=======
+#Bibliotecas importadas
+>>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
 import numpy as np #Numpy
 
 #Función de convolución
 def convolucion(IOriginal, Kernel):
+<<<<<<< HEAD
     '''
    #Función que se encarga de realizar la convolución a una imágen con un Kernel
     Parámetros:
@@ -10,6 +15,8 @@ def convolucion(IOriginal, Kernel):
     * Kernel = Matriz que servirá como el Kernel de la convolución de la imagen
     * Res = Matriz resultante de realizar la convolución de la imagen
     '''
+=======
+>>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
 
     #Variables:
     fr = len(IOriginal) - (len(Kernel) - 1)           #Número de filas de la matriz resultante
@@ -37,4 +44,8 @@ In = np.array(I)  #Array de la imágen en numpy
 Kn = np.array(K)  #Array del Kernel en numpy
 
 R = convolucion(In, Kn) #Se hace la matriz resultante mandando a llamar la función de convolución
+<<<<<<< HEAD
 print(R) 
+=======
+print(R)   #Se imprime la matriz resultante de la convoluciór
+>>>>>>> 559cc8a2cdc2f0046bb5a95ee4dc507c4bc15534
